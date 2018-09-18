@@ -66,7 +66,7 @@ class DataProviderLoggerDecorator implements DataProviderInterface
     public function get(array $request)
     {
         try {
-            $result = parent::get($request);
+            $result = $this->dataProvider->get($request);
             return $result;
         } catch (Exception $e) {
             $this->logger->critical('Error');
@@ -102,7 +102,7 @@ class DataProviderCacheDecorator implements DataProviderInterface
             return $cacheItem->get();
         }
 
-        $result = parent::get($request);
+        $result = this->dataProvider->get($request);
 
         $cacheItem
             ->set($result)
